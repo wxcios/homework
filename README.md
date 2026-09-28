@@ -34,18 +34,27 @@ npm run test:e2e
 
 `src/features/chinese` 和 `src/features/math` 分别维护学科配置、生成逻辑与测试；`src/components` 维护唯一的共享导航、配置、预览及 A4 外壳。字帖使用 SVG 绘制，屏幕预览和打印复用同一份内容。当前使用说明以本 README 为准。
 
-## Vercel 部署
+## GitHub Pages 部署
 
-公网地址：https://homework-tau-two.vercel.app
+固定公网地址：https://wxcios.github.io/homework/
 
 代码仓库：https://github.com/wxcios/homework
 
-项目为 `wxc-s-projects/homework`，从 GitHub 仓库导入，生产分支为 `main`。Vercel 使用 Vite、`npm ci`、`npm run build` 和 `dist` 输出目录。后续将代码提交并推送到 `main`，即可自动构建和发布，无需手动上传：
+仓库为公开仓库，GitHub Pages 的发布来源为 GitHub Actions。`.github/workflows/deploy.yml` 在推送到 `main` 时自动安装依赖、运行单元测试、构建并发布 `dist`；测试或构建失败时不会发布。也可在 Actions 页面手动运行工作流。
+
+后续将代码提交并推送到 `main` 即可更新网站，公网地址不变：
 
 ```sh
 git push origin main
 ```
 
-部署状态及构建日志：https://vercel.com/wxc-s-projects/homework
+部署状态及构建日志：https://github.com/wxcios/homework/actions
 
-`.gitignore` 排除依赖、构建与测试产物、开发辅助文件及环境变量文件，避免将这些文件上传到 GitHub；`.vercelignore` 同样排除本地部署不需要的文件。账号凭据不提交到仓库。
+Pages 构建使用 `npm run build -- --base=/homework/`，确保资源路径适配项目子目录，本地开发仍使用根路径。需要在本地检查 Pages 产物时执行：
+
+```sh
+npm run build -- --base=/homework/
+npx vite preview --base=/homework/
+```
+
+打开 `http://localhost:4173/homework/`。部署使用 GitHub 自动提供的短期令牌，无需配置个人访问令牌或其他部署密钥。`.gitignore` 排除依赖、构建与测试产物、开发辅助文件及环境变量文件；账号凭据不提交到仓库。

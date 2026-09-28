@@ -4,6 +4,5 @@ dist/
 test-results/
 playwright-report/
 *.tsbuildinfo
-.vercel
 .env*
 .DS_Store
