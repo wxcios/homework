@@ -36,12 +36,16 @@ npm run test:e2e
 
 ## Vercel 部署
 
-公网地址：https://homework-ten-theta.vercel.app
+公网地址：https://homework-tau-two.vercel.app
 
-项目为 `wxc-s-projects/homework`，使用 Vite、`npm run build` 和 `dist` 输出目录。当前通过 CLI 发布，未配置 Git 自动部署。后续更新在项目目录执行：
+代码仓库：https://github.com/wxcios/homework
+
+项目为 `wxc-s-projects/homework`，从 GitHub 仓库导入，生产分支为 `main`。Vercel 使用 Vite、`npm ci`、`npm run build` 和 `dist` 输出目录。后续将代码提交并推送到 `main`，即可自动构建和发布，无需手动上传：
 
 ```sh
-npx vercel@60.1.3 deploy --prod --scope wxc-s-projects
+git push origin main
 ```
 
-首次在其他电脑发布需要先登录并关联上述项目。`.vercelignore` 排除本地构建、测试产物、开发辅助文件及环境变量文件；账号凭据不存放在项目中。
+部署状态及构建日志：https://vercel.com/wxc-s-projects/homework
+
+`.gitignore` 排除依赖、构建与测试产物、开发辅助文件及环境变量文件，避免将这些文件上传到 GitHub；`.vercelignore` 同样排除本地部署不需要的文件。账号凭据不提交到仓库。
