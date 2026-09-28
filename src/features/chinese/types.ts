@@ -1,4 +1,4 @@
-import type { WorksheetSettings } from '../../components/WorksheetSettings'
+import type { WorksheetSettings } from '../../lib/worksheet-layout'
 
 export type ChineseGridType = 'tian' | 'mi' | 'square'
 

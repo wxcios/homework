@@ -1,15 +1,9 @@
 import { Checkbox, Divider, Form, Input, Radio } from 'antd'
-
-export interface WorksheetSettings {
-  title: string
-  instructions: string
-  showHeader: boolean
-  margin: number
-}
+import type { WorksheetSettings as WorksheetSettingsValue } from '../lib/worksheet-layout'
 
 export function WorksheetSettings({ value, onChange }: {
-  value: WorksheetSettings
-  onChange: (value: WorksheetSettings) => void
+  value: WorksheetSettingsValue
+  onChange: (value: WorksheetSettingsValue) => void
 }) {
   return <>
     <Divider plain titlePlacement="left">通用设置</Divider>

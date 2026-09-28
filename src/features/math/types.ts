@@ -1,7 +1,9 @@
+import type { WorksheetSettings } from '../../lib/worksheet-layout'
+
 export type MathOperation = 'add' | 'subtract' | 'multiply' | 'divide'
 export type CarryBorrow = 'any' | 'with' | 'without'
 
-export interface MathConfig {
+export interface MathConfig extends WorksheetSettings {
   operations: MathOperation[]
   maxNumber: number
   count: number
@@ -11,10 +13,6 @@ export interface MathConfig {
   columns: number
   format: 'horizontal' | 'vertical'
   includeAnswers: boolean
-  title: string
-  instructions: string
-  showHeader: boolean
-  margin: number
 }
 
 export interface MathProblem {

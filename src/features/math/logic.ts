@@ -46,16 +46,22 @@ export function getGenerationError(config: MathConfig, candidates = getCandidate
   return null
 }
 
-export function generateProblems(config: MathConfig, random = Math.random): MathProblem[] {
+export function generateWorksheet(config: MathConfig, random = Math.random): { problems: MathProblem[]; error: string | null } {
   const candidates = getCandidates(config)
   const error = getGenerationError(config, candidates)
-  if (error) throw new Error(error)
+  if (error) return { problems: [], error }
   const problems: MathProblem[] = []
   for (let i = 0; i < config.count; i += 1) {
     const index = Math.floor(random() * candidates.length)
     problems.push(candidates[index])
     if (config.avoidDuplicates) candidates.splice(index, 1)
   }
+  return { problems, error: null }
+}
+
+export function generateProblems(config: MathConfig, random = Math.random): MathProblem[] {
+  const { problems, error } = generateWorksheet(config, random)
+  if (error) throw new Error(error)
   return problems
 }
 

@@ -26,9 +26,12 @@ export function MathWorkspace({ worksheet, onSubjectChange }: MathWorkspaceProps
   const { config, problems, error, setConfig, update, generate } = worksheet
   const problemPages = error ? [] : paginateProblems(problems, config)
   const answerPages = !error && config.includeAnswers ? paginateProblems(problems, { ...config, format: 'horizontal', title: `${config.title} · 参考答案` }) : []
+  const columnWidth = (210 - config.margin * 2 - (config.columns - 1) * 5) / config.columns
+  // Reserve 39 mm at 13 pt for the longest answer, 100 × 100 = 10000.
+  const answerFontSize = Math.min(13, 13 * columnWidth / 39)
   const renderPage = (page: MathProblem[], index: number, answer: boolean) => (
     <WorksheetShell key={`${answer ? 'answers' : 'questions'}-${index}`} title={answer ? `${config.title} · 参考答案` : config.title} margin={config.margin} instructions={config.instructions} showHeader={config.showHeader}>
-      <div className="math-problems" style={{ gridTemplateColumns: `repeat(${config.columns}, minmax(0, 1fr))` }}>
+      <div className="math-problems" style={{ gridTemplateColumns: `repeat(${config.columns}, minmax(0, 1fr))`, fontSize: answer ? `${answerFontSize}pt` : undefined }}>
         {page.map((problem, i) => <Problem key={i} problem={problem} format={config.format} answer={answer} />)}
       </div>
     </WorksheetShell>

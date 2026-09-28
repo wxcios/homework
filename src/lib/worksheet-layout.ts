@@ -1,4 +1,4 @@
-interface WorksheetLayoutSettings {
+export interface WorksheetSettings {
   title: string
   instructions: string
   showHeader: boolean
@@ -16,7 +16,7 @@ function wrapLines(text: string, charactersPerLine: number): string[] {
   return lines
 }
 
-export function getWorksheetLayout({ title, instructions, showHeader, margin }: WorksheetLayoutSettings) {
+export function getWorksheetLayout({ title, instructions, showHeader, margin }: WorksheetSettings) {
   const width = 210 - margin * 2
   // Keep 2 mm of horizontal tolerance in addition to the title's 1 px tracking.
   const titleCapacity = Math.floor((width - 2) / (21 * 25.4 / 72 + 25.4 / 96))

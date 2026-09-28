@@ -8,6 +8,9 @@ interface ChineseWorksheetProps {
 
 export function ChineseWorksheet({ config, rows }: ChineseWorksheetProps) {
   const cellSize = (210 - config.margin * 2) / config.columns
+  // Keep a 0.2 mm outline fully inside the SVG, including in print renderers.
+  const borderWidth = 0.2 * 100 / cellSize
+  const borderInset = borderWidth / 2
 
   return (
     <WorksheetShell
@@ -28,7 +31,7 @@ export function ChineseWorksheet({ config, rows }: ChineseWorksheetProps) {
             aria-label={`第 ${rowIndex + 1} 行${row[0].character ? `：${row[0].character}` : '：空白练习'}`}
             style={{ display: 'block', overflow: 'visible' }}
           >
-            <rect x="0" y="0" width={config.columns * 100} height="100" fill="none" stroke={config.color} strokeWidth="0.8" />
+            <rect x={borderInset} y={borderInset} width={config.columns * 100 - borderWidth} height={100 - borderWidth} fill="none" stroke={config.color} strokeWidth={borderWidth} />
             {row.map((cell, index) => (
               <g key={index} transform={`translate(${index * 100} 0)`}>
                 {index > 0 && <path d="M0 0V100" stroke={config.color} strokeWidth="0.7" />}

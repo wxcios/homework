@@ -30,6 +30,15 @@ npm run test:e2e
 
 浏览器测试覆盖两科切换、配置生成、不同视口下整张纸张可见、分页、缩放和打印尺寸，并将截图与打印样本输出到 `test-results/`。
 
+部署前另对真实 Pages 构建产物执行 smoke 测试：
+
+```sh
+npm run build -- --base=/homework/
+npm run test:pages
+```
+
+该测试自动启动独立的 `http://127.0.0.1:4176/homework/` 预览服务，检查资源请求、两科配置、切换后状态保留和全部页面的 A4 打印渲染。它与开发服务器及 `npm run test:e2e` 隔离；运行前需安装 Chromium，端口 4176 需空闲。
+
 ## 代码结构
 
 `src/features/chinese` 和 `src/features/math` 分别维护学科配置、生成逻辑与测试；`src/components` 维护唯一的共享导航、配置、预览及 A4 外壳。字帖使用 SVG 绘制，屏幕预览和打印复用同一份内容。当前使用说明以本 README 为准。
@@ -40,7 +49,7 @@ npm run test:e2e
 
 代码仓库：https://github.com/wxcios/homework
 
-仓库为公开仓库，GitHub Pages 的发布来源为 GitHub Actions。`.github/workflows/deploy.yml` 在推送到 `main` 时自动安装依赖、运行单元测试、构建并发布 `dist`；测试或构建失败时不会发布。也可在 Actions 页面手动运行工作流。
+仓库为公开仓库，GitHub Pages 的发布来源为 GitHub Actions。`.github/workflows/deploy.yml` 在推送到 `main` 时自动安装依赖、运行单元测试、构建、执行 Pages smoke 测试并发布 `dist`；任一测试或构建失败时不会发布。也可在 Actions 页面手动运行工作流。
 
 后续将代码提交并推送到 `main` 即可更新网站，公网地址不变：
 
